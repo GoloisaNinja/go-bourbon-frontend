@@ -1,0 +1,58 @@
+@import '../../scss/mixins.scss';
+$dash-bg: url('../../images/dashboard.webp');
+$bourbon-bg: url('../../images/landing.webp');
+$reviews-bg: url('../../images/reviews.webp');
+$collections-bg: url('../../images/collections.webp');
+$wishlists-bg: url('../../images/wishlists.webp');
+$bourbons-bg: url('../../images/bourbons.webp');
+
+@include hero_splash;
+
+.home {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4/3;
+	background: $bourbon-bg;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.dash {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4/3;
+	background: $dash-bg;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.reviews {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4/3;
+	background: $reviews-bg;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.collections {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4/3;
+	background: $collections-bg;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.wishlists {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4/3;
+	background: $wishlists-bg;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.bourbons {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4/3;
+	background: $bourbons-bg;
+	background-size: cover;
+	background-repeat: no-repeat;
+}

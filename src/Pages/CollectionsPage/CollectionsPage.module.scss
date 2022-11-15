@@ -1,0 +1,12 @@
+@import '../../scss/colors.scss';
+
+.collections_section {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-gap: 25px;
+	color: #eee;
+	margin: 25px;
+	@media (min-width: 700px) {
+		grid-template-columns: 1fr 1fr;
+	}
+}

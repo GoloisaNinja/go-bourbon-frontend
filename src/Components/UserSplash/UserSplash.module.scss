@@ -1,0 +1,13 @@
+@import '../../scss/mixins.scss';
+$bourbons-bg: url('../../images/bourbons.webp');
+
+@include user_splash;
+
+.bourbons {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4/3;
+	background: $bourbons-bg;
+	background-size: cover;
+	background-repeat: no-repeat;
+}

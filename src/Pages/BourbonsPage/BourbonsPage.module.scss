@@ -1,0 +1,36 @@
+@import '../../scss/colors.scss';
+@import '../../scss/mixins.scss';
+.intro {
+	text-align: center;
+	margin-top: 75px;
+	margin-bottom: 50px;
+	> h1 {
+		color: $blue-color;
+		font-size: 50px;
+	}
+}
+.pages {
+	display: flex;
+	justify-content: center;
+	color: #eee;
+}
+.btn_group {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
+	> button:first-child {
+		margin-right: 25px;
+	}
+	> button {
+		@include gradient-button;
+		width: 50px;
+		> svg {
+			font-weight: bold;
+		}
+	}
+}
+.pink_span {
+	color: $pink-color;
+	text-shadow: none;
+}

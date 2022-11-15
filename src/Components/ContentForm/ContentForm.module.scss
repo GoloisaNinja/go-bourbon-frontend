@@ -1,0 +1,36 @@
+@import '../../scss/colors.scss';
+@import '../../scss/mixins.scss';
+
+.form_container {
+	> h1 {
+		font-size: 30px;
+		color: #eee;
+	}
+	> form {
+		display: flex;
+		flex-direction: column;
+		background-color: $dark-blue-accent;
+		> label {
+			font-size: 20px;
+			font-weight: bold;
+			color: $blue-color;
+		}
+		> input {
+			font-size: 18px;
+			padding: 10px;
+			color: #303030;
+			margin-bottom: 25px;
+			border-radius: 5px;
+			background-color: #eee;
+			margin-bottom: 0;
+		}
+		> button {
+			@include no_animation_gradient_button;
+		}
+	}
+}
+.title_chars {
+	color: #ccc;
+	margin-left: auto;
+	margin-bottom: 25px;
+}

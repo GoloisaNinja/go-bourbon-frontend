@@ -1,0 +1,72 @@
+@import '../../scss/colors.scss';
+@import '../../scss/mixins.scss';
+
+.content_list {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	background-color: $dark-blue-accent;
+	color: $teal-color;
+	max-height: 500px;
+	overflow-y: auto;
+	border-radius: 5px;
+	> button:not(:last-child) {
+		margin-bottom: 15px;
+	}
+}
+.main_content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	> h1 {
+		color: #eee;
+	}
+	> div:last-child {
+		width: 35px;
+		> svg {
+			font-size: 35px;
+			color: $dark-blue-accent;
+			background-color: #eee;
+			border-radius: 50%;
+			padding: 5px;
+			cursor: pointer;
+			width: 35px;
+		}
+	}
+}
+.main_content_btn {
+	display: flex;
+	justify-content: space-between;
+	border: none;
+	background: none;
+	outline: none;
+	font-family: 'Readex Pro', sans-serif;
+	font-weight: bold;
+	background-color: darken($red-color, 5%);
+	border-bottom: 2px solid darken($red-color, 10%);
+	color: #fff;
+	border-radius: 5px;
+	padding: 12px;
+	text-align: left;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	> span {
+		text-align: right;
+		min-width: 40%;
+	}
+	&:hover {
+		background-color: $red-color;
+	}
+}
+.empty_div {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	> h1:first-child {
+		color: #eee;
+	}
+	> button {
+		@include gradient-button;
+	}
+}

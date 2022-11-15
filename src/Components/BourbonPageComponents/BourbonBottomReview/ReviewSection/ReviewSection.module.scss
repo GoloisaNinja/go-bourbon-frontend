@@ -1,0 +1,40 @@
+@import '../../../../scss/colors.scss';
+@import '../../../../scss/mixins.scss';
+
+.user_review_container {
+	border-radius: 5px;
+	> div:first-child {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 40px;
+		> h1 {
+			> svg {
+				margin-left: 15px;
+				color: $pink-color;
+				font-size: 60px;
+				vertical-align: bottom;
+			}
+		}
+		@media (min-width: 650px) {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 0;
+		}
+		> button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			@include gradient_button;
+			max-width: 135px;
+			> svg {
+				font-size: 25px;
+				margin-right: 5px;
+			}
+		}
+	}
+}
+
+.user_review_header {
+	font-size: 50px;
+}

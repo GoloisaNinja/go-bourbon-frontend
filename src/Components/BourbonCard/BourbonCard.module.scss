@@ -1,0 +1,128 @@
+@import '../../scss/mixins.scss';
+$blue-text: #7aadff;
+
+.card_container {
+	display: flex;
+	flex-direction: column;
+	transition: all 0.3s ease-in-out;
+	&:hover {
+		transform: scale(1.03);
+	}
+}
+.image_container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #696969;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	max-width: 100%;
+	position: relative;
+}
+.score_container {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	//background: $dark-blue-accent;
+	color: #fff;
+	opacity: 0.8;
+	padding: 10px;
+	width: 67px;
+	border-radius: 50%;
+	> p {
+		margin: 0;
+		width: 100%;
+		font-weight: bold;
+		text-align: center;
+	}
+	> p:first-child {
+		text-align: center;
+		font-size: 28px;
+		border: 1px solid #fff;
+		border-radius: 50%;
+		padding: 5px;
+		background-color: $dark-blue-accent;
+		color: $blue-color;
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+			rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+	}
+}
+.image {
+	max-width: 100%;
+	height: auto;
+	aspect-ratio: 4.5/3;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	flex: 1;
+}
+.card_container_lower {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+	background-color: #1a1a1a;
+	flex: 1;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+.card_title {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	> h2 {
+		font-weight: 600;
+		color: #eee;
+		font-size: 16px;
+		@media (min-width: 1000px) {
+			font-size: 30px;
+		}
+	}
+}
+.card_details {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	> table {
+		border-collapse: collapse;
+		color: #eee;
+		text-align: left;
+		> thead {
+			> tr {
+				> th {
+					color: $blue-text;
+					font-weight: 700;
+					padding: 0 10px;
+					vertical-align: center;
+					font-size: 12px;
+					@media (min-width: 1000px) {
+						font-size: 14px;
+					}
+				}
+			}
+		}
+		> tbody {
+			> tr {
+				> td {
+					color: #eee;
+					padding: 5px 10px;
+					font-size: 10px;
+					font-weight: 600;
+					vertical-align: center;
+					@media (min-width: 1000px) {
+						font-size: 14px;
+					}
+				}
+			}
+		}
+	}
+}
+.card_button {
+	display: inline-block;
+	width: 100%;
+	margin: 20px 0;
+}
+.bourbon_button {
+	@include gradient_button;
+}

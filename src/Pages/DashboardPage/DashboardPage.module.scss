@@ -1,0 +1,30 @@
+@import '../../scss/colors.scss';
+.container {
+	color: #eee;
+}
+.leaving {
+	margin: 25px;
+	> button {
+		background: none;
+		border: none;
+		outline: none;
+		color: #fff;
+		font-family: 'Readex Pro', sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		background-color: $red-color;
+		box-shadow: 0 0 5px 5px $red-color;
+		cursor: pointer;
+		transition: all 0.4s ease-in-out;
+		padding: 15px;
+		border-radius: 5px;
+		&:hover {
+			background-color: darken($red-color, 10%);
+			box-shadow: 0 0 5px 5px darken($red-color, 10%);
+		}
+		&:disabled {
+			cursor: not-allowed;
+			opacity: 0.5;
+		}
+	}
+}

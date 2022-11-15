@@ -1,0 +1,218 @@
+@import './colors.scss';
+
+@mixin gradient_button {
+	background: none;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-family: 'Readex Pro', sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	background: -webkit-linear-gradient(left, $pink-color, $teal-color);
+	background-size: 200% 200%;
+	position: relative;
+	animation: gradient-animation 4s ease infinite;
+	box-shadow: 0 0 10px 5px #a200d6;
+	cursor: pointer;
+	transition: all 0.4s ease-in-out;
+	width: 100%;
+	padding: 15px;
+	border-radius: 5px;
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+}
+@mixin no_animation_gradient_button {
+	background: none;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-family: 'Readex Pro', sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	background: -webkit-linear-gradient(left, $pink-color, $teal-color);
+	box-shadow: 0 0 10px 5px #a200d6;
+	cursor: pointer;
+	width: 100%;
+	padding: 15px;
+	border-radius: 5px;
+	&:disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+}
+
+@mixin gradient_text {
+	background: -webkit-linear-gradient(left, $pink-color 30%, $teal-color 60%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@mixin user_splash {
+	.img_container {
+		position: relative;
+		margin-top: 50px;
+		color: #eee;
+	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.4);
+		> div:first-child {
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			height: 100%;
+			padding: 15px;
+			> h1 {
+				text-shadow: 2px 2px 2px darken($pink-color, 10%);
+				word-break: break-word;
+				margin-bottom: 0;
+				text-align: left;
+				font-size: 50px;
+				@media (min-width: 600px) {
+					font-size: 60px;
+				}
+				@media (min-width: 800px) {
+					font-size: 80px;
+				}
+			}
+			> h1:last-child {
+				margin-top: 0;
+			}
+			// > h1:last-child {
+			// 	margin-top: 0;
+			// }
+
+			// > h1 {
+			// 	font-size: 40px;
+			// 	text-shadow: 2px 2px 2px darken($pink-color, 10%);
+			// 	word-break: break-word;
+			// 	margin-bottom: 0;
+			// 	@media (min-width: 350px) {
+			// 		font-size: 50px;
+			// 	}
+			// 	@media (min-width: 425px) {
+			// 		font-size: 55px;
+			// 	}
+			// 	@media (min-width: 475px) {
+			// 		font-size: 65px;
+			// 	}
+			// 	@media (min-width: 550px) {
+			// 		font-size: 75px;
+			// 	}
+			// 	@media (min-width: 650px) {
+			// 		font-size: 85px;
+			// 	}
+			// 	@media (min-width: 750px) {
+			// 		font-size: 100px;
+			// 	}
+			// 	@media (min-width: 850px) {
+			// 		font-size: 125px;
+			// 	}
+			// }
+		}
+	}
+}
+
+@mixin hero_splash {
+	.img_container {
+		position: relative;
+		margin-top: 50px;
+		color: #eee;
+	}
+
+	.overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.4);
+		> div:first-child {
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: flex-start;
+			height: 100%;
+			padding: 15px;
+			> h1:last-child {
+				margin-top: 0;
+			}
+
+			> h1 {
+				font-size: 40px;
+				text-shadow: 2px 2px 2px darken($pink-color, 10%);
+				word-break: break-word;
+				margin-bottom: 0;
+				@media (min-width: 350px) {
+					font-size: 50px;
+				}
+				@media (min-width: 425px) {
+					font-size: 55px;
+				}
+				@media (min-width: 475px) {
+					font-size: 65px;
+				}
+				@media (min-width: 550px) {
+					font-size: 75px;
+				}
+				@media (min-width: 650px) {
+					font-size: 85px;
+				}
+				@media (min-width: 750px) {
+					font-size: 100px;
+				}
+				@media (min-width: 850px) {
+					font-size: 125px;
+				}
+			}
+		}
+	}
+	.pink_span {
+		color: $pink-color;
+		text-shadow: none;
+	}
+}
+
+/* KeyFrames */
+@-webkit-keyframes gradient-animation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+@-moz-keyframes gradient-animation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+@keyframes gradient-animation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

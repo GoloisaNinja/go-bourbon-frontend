@@ -1,0 +1,72 @@
+@import '../../scss/colors.scss';
+@mixin button-style {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: none;
+	border: none;
+	font-family: 'Readex Pro', sans-serif;
+	font-weight: bold;
+	background-color: darken($pink-color, 15%);
+	color: #fff;
+	border-bottom: 2px solid darken($pink-color, 25%);
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.4s ease-in-out;
+	&:hover {
+		background-color: $pink-color;
+	}
+}
+
+.container {
+	padding: 10px;
+	max-width: 700px;
+	> div:first-child {
+		display: flex;
+		align-items: center;
+		> h2 {
+			color: #eee;
+			margin-bottom: 10px;
+		}
+		> svg {
+			font-size: 20px;
+			color: $pink-color;
+			margin-top: 15px;
+			margin-left: 15px;
+			cursor: pointer;
+			transition: all 0.4s ease;
+			&.expand {
+				transform: rotate(90deg);
+			}
+		}
+	}
+	> div:last-child {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+		grid-gap: 8px;
+		height: 0;
+		transition: height 0.4s ease-in-out;
+		overflow: hidden;
+		&.expand {
+			height: 78px;
+		}
+		> button {
+			@include button-style;
+			padding: 8px 3px;
+			&.active {
+				background-color: $purple-color;
+			}
+			&.sortDirection {
+				@include button-style;
+				background-color: darken($teal-color, 5%);
+				border-bottom: 2px solid darken($teal-color, 15%);
+				font-size: 20px;
+				max-width: 50px;
+				padding: 0;
+				&:hover {
+					background-color: $teal-color;
+				}
+			}
+		}
+	}
+}

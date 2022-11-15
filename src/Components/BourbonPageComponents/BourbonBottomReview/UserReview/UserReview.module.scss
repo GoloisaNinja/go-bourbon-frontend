@@ -1,0 +1,46 @@
+@import '../../../../scss/colors.scss';
+
+.user_review {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	margin-bottom: 20px;
+	background-color: $dark-blue-accent;
+	border-radius: 5px;
+	border: 1px solid $pink-color;
+	> div:first-child {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		> div:first-child {
+			> h2 {
+				color: $blue-color;
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+			> div:last-child {
+				display: flex;
+				color: $pink-color;
+				> p {
+					margin: 0;
+					font-size: 12px;
+				}
+				> p:first-child {
+					margin-right: 5px;
+				}
+			}
+		}
+		> p {
+			font-size: 20px;
+			padding: 10px 16px;
+			background-color: #eee;
+			border-radius: 50%;
+			font-weight: bold;
+			color: $dark-blue-accent;
+		}
+	}
+}
+.review_text {
+	margin-top: 25px;
+	flex: 1;
+}

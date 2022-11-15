@@ -1,0 +1,114 @@
+@import '../../../scss/colors.scss';
+
+.details_wrapper {
+	background-color: $dark-blue-accent;
+	color: #eee;
+	padding: 15px;
+	max-height: 500px;
+	overflow-y: auto;
+	border-radius: 5px;
+	> div:first-child {
+		> div:first-child {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			> div:last-child {
+				display: flex;
+				min-width: 70px;
+				> svg {
+					font-size: 35px;
+					color: #eee;
+					background-color: $red-color;
+					border-radius: 50%;
+					padding: 5px;
+					cursor: pointer;
+				}
+				> svg:first-child {
+					background-color: darken($blue-color, 15%);
+					margin-right: 10px;
+				}
+			}
+		}
+		> div:nth-child(2) {
+			display: grid;
+			grid-template-areas:
+				'title score'
+				'bourbon bourbon';
+			grid-gap: 35px;
+			margin-top: 15px;
+			> div:first-child {
+				grid-area: bourbon;
+			}
+			> div:nth-child(2) {
+				grid-area: title;
+			}
+			> div:last-child {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: flex-end;
+				grid-area: score;
+			}
+			@media (min-width: 450px) {
+				grid-template-areas: 'title bourbon score';
+			}
+			@media (min-width: 600px) {
+				grid-template-areas:
+					'title score'
+					'bourbon bourbon';
+			}
+			@media (min-width: 851px) {
+				grid-template-areas: 'title bourbon score';
+			}
+		}
+	}
+}
+.details_upper_card {
+	display: flex;
+	flex-direction: column;
+	border-radius: 5px;
+	padding: 5px 0;
+	> p:first-child {
+		color: $blue-color;
+		margin: 0;
+	}
+	> p:last-child {
+		font-size: 14px;
+	}
+}
+.bourbon_link {
+	font-size: 14px;
+	color: $pink-color;
+}
+.score {
+	> p:first-child {
+		margin-right: 3px;
+	}
+
+	> p:last-child {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 25px;
+		font-weight: bold;
+		background-color: #eee;
+		border-radius: 50%;
+		padding: 8px 10px;
+		width: 50px;
+		color: $dark-blue-accent;
+		//margin-top: 14px;
+		margin-bottom: 0;
+	}
+}
+.details_lower_card {
+	margin-top: 15px;
+	border-radius: 5px;
+	padding: 5px 0;
+	> p:first-child {
+		margin-top: 0;
+		color: $blue-color;
+	}
+	> p:last-child {
+		font-size: 14px;
+	}
+}

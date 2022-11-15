@@ -1,0 +1,47 @@
+@import '../../../scss/mixins.scss';
+@import '../../../scss/colors.scss';
+
+.form_wrapper {
+	max-width: 700px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 15px;
+	margin: 0 auto;
+	> div:last-child {
+		display: flex;
+		align-items: center;
+		> a {
+			text-decoration: none;
+			color: $blue-color;
+			margin-left: 5px;
+			font-weight: bold;
+		}
+		> p {
+			color: #fff;
+		}
+	}
+	> form {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		> label {
+			font-size: 20px;
+			font-weight: bold;
+			color: $blue-color;
+		}
+		> input {
+			font-size: 18px;
+			color: #eee;
+			padding: 10px;
+			color: #696969;
+			margin-bottom: 25px;
+			border-radius: 5px;
+		}
+		> button {
+			@include gradient_button;
+			margin-top: 15px;
+		}
+	}
+}

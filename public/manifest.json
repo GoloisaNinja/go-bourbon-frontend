@@ -1,0 +1,15 @@
+{
+	"short_name": "hello bourb(on)",
+	"name": "hello bourb(ON) bourbon reviews bourbon collection and bourbon ishlist application",
+	"icons": [
+		{
+			"src": "hello_logo.webp",
+			"type": "image/webp",
+			"sizes": "500x500"
+		}
+	],
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#000000"
+}

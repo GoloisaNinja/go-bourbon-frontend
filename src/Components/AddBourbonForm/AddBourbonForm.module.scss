@@ -1,0 +1,42 @@
+@import '../../scss/colors.scss';
+@import '../../scss/mixins.scss';
+
+.form_container {
+	> h1 {
+		font-size: 30px;
+	}
+	> form {
+		display: flex;
+		flex-direction: column;
+		background-color: $dark-blue-accent;
+		> label {
+			font-size: 20px;
+			font-weight: bold;
+			color: $blue-color;
+		}
+		> select {
+			font-size: 18px;
+			padding: 10px;
+			color: #303030;
+			margin-bottom: 25px;
+			border-radius: 5px;
+			background-color: #eee;
+		}
+		> button {
+			@include no_animation_gradient_button;
+			&:disabled {
+				cursor: not-allowed;
+				opacity: 0.5;
+			}
+		}
+	}
+}
+.empty_container {
+	> h3 {
+		color: $blue-color;
+	}
+	> button {
+		@include gradient-button;
+		margin-top: 25px;
+	}
+}

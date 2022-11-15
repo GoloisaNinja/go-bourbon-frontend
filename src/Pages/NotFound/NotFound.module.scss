@@ -1,0 +1,36 @@
+@import '../../scss/colors.scss';
+@import '../../scss/mixins.scss';
+
+.container {
+	> div:last-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		background-color: $dark-blue-accent;
+		margin: 50px 15px;
+		border-radius: 8px;
+		> h1 {
+			@include gradient_text;
+			font-size: 35px;
+			text-align: center;
+			padding: 20px 10px;
+			margin-bottom: 0;
+			@media (min-width: 425px) {
+				font-size: 50px;
+			}
+			> svg {
+				color: $teal-color;
+			}
+			> svg:last-child {
+				color: $pink-color;
+			}
+		}
+		> p {
+			font-size: 20px;
+			color: #eee;
+			padding: 0 10px;
+			text-align: center;
+		}
+	}
+}

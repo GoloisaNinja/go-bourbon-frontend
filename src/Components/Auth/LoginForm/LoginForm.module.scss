@@ -1,0 +1,77 @@
+@import '../../../scss/mixins.scss';
+@import '../../../scss/colors.scss';
+
+.form_wrapper {
+	max-width: 700px;
+	display: flex;
+	flex-direction: column;
+	//justify-content: center;
+	align-items: center;
+	padding: 15px;
+	margin: 0 auto;
+	min-height: 100vh;
+	> div:nth-child(2) {
+		display: flex;
+		align-items: center;
+		> a {
+			text-decoration: none;
+			color: $blue-color;
+			margin-left: 5px;
+			font-weight: bold;
+		}
+		> p {
+			color: #fff;
+		}
+	}
+	> div:last-child {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: 100%;
+		margin-top: 25px;
+		> p {
+			color: #fff;
+		}
+		> button {
+			background: none;
+			border: none;
+			background-color: $red-color;
+			font-family: 'Readex Pro', sans-serif;
+			font-size: 18px;
+			font-weight: 700;
+			color: #fff;
+			padding: 15px;
+			border-radius: 5px;
+			box-shadow: 0 0 5px 5px $red-color;
+			cursor: pointer;
+			transition: all 0.4s ease-in-out;
+			&:hover {
+				background-color: darken($red-color, 10%);
+				box-shadow: 0 0 5px 5px darken($red-color, 10%);
+			}
+		}
+	}
+	> form {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		> label {
+			font-size: 20px;
+			font-weight: bold;
+			color: $blue-color;
+		}
+		> input {
+			font-size: 18px;
+			color: #eee;
+			padding: 10px;
+			color: #303030;
+			margin-bottom: 25px;
+			border-radius: 5px;
+		}
+		> button {
+			@include gradient_button;
+			margin-top: 15px;
+		}
+	}
+}

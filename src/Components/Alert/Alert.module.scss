@@ -1,0 +1,19 @@
+@import '../../scss/colors.scss';
+.alert {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 2;
+	padding: 10px;
+	background-color: darken($blue-color, 25%);
+	color: #fff;
+	font-weight: bold;
+}
+.alert_danger {
+	@extend .alert;
+	background-color: darken($pink-color, 10%);
+}
+.alert_success {
+	@extend .alert;
+}

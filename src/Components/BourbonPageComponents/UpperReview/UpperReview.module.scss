@@ -1,0 +1,40 @@
+@import '../../../scss/colors.scss';
+
+.review_container {
+	> h1 {
+		margin-top: 0;
+		margin-bottom: 50px;
+		> svg {
+			color: $purple-color;
+		}
+	}
+}
+
+.credit {
+	color: $blue-color;
+	font-size: 18px;
+}
+.section_text {
+	line-height: 1.6;
+	font-weight: 300;
+	font-size: 20px;
+	color: #ccc;
+	margin-bottom: 50px;
+}
+.section_label {
+	display: inline-block;
+	text-align: center;
+	color: #fff;
+	border: 1px solid darken($blue-color, 25%);
+	background-color: darken($blue-color, 25%);
+	padding: 5px;
+	margin-right: 10px;
+	width: 120px;
+	font-weight: 400;
+}
+.overall {
+	@extend .section_label;
+	border: 1px solid darken($pink-color, 20%);
+	color: #fff;
+	background-color: darken($pink-color, 20%);
+}

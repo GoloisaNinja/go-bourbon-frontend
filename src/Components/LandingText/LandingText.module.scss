@@ -1,0 +1,63 @@
+@import '../../scss/colors.scss';
+@import '../../scss/mixins.scss';
+
+.landing_wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: $dark-blue-accent;
+	margin: 50px 15px;
+	border-radius: 8px;
+	> h1 {
+		@include gradient_text;
+		font-size: 35px;
+		text-align: center;
+		padding: 20px 10px;
+		margin-bottom: 0;
+		@media (min-width: 425px) {
+			font-size: 50px;
+		}
+		> svg {
+			color: $teal-color;
+		}
+		> svg:last-child {
+			color: $pink-color;
+		}
+	}
+	> p {
+		font-size: 20px;
+		color: #eee;
+		padding: 0 10px;
+		text-align: center;
+	}
+}
+.grid_intro {
+	margin: 0px 15px;
+	> h2 {
+		margin: 0;
+		color: $blue-color;
+	}
+}
+.landing_grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	justify-content: center;
+	align-items: stretch;
+	grid-gap: 25px;
+	margin: 50px 15px;
+	@media (min-width: 600px) {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+.btn_group {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	margin: 50px 15px;
+	> button {
+		max-width: 600px;
+		@include gradient_button;
+	}
+}

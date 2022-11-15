@@ -1,0 +1,15 @@
+@import '../../scss/mixins.scss';
+
+.title {
+	@include gradient_text;
+	font-size: 55px;
+	text-align: center;
+	margin-top: 75px;
+	margin-bottom: 50px;
+	@media (min-width: 400px) {
+		font-size: 75px;
+	}
+	@media (min-width: 800px) {
+		font-size: 100px;
+	}
+}

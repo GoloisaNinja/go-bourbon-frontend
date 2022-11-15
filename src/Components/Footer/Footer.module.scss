@@ -1,0 +1,42 @@
+@import '../../scss/colors.scss';
+
+.footer_container {
+	display: grid;
+	grid-gap: 15px;
+	grid-template-areas: 'a b';
+	color: #fff;
+	padding: 25px;
+	margin-top: 50px;
+	> div:first-child {
+		display: flex;
+		grid-area: a;
+		flex-direction: column;
+		> a {
+			text-decoration: none;
+			color: $blue-color;
+			margin-bottom: 12px;
+		}
+	}
+	> div:last-child {
+		display: flex;
+		flex-direction: column;
+		grid-area: b;
+		> a {
+			text-decoration: none;
+			color: $blue-color;
+			margin-bottom: 12px;
+		}
+		> h3 {
+			> a {
+				text-decoration: none;
+				color: #fff;
+			}
+			> svg {
+				color: $blue-color;
+			}
+		}
+	}
+}
+.pink_span {
+	color: $pink-color;
+}

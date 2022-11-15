@@ -1,0 +1,20 @@
+@import '../../scss/colors.scss';
+
+.search_details {
+	padding: 10px;
+	> h4 {
+		color: $blue-color;
+		margin: 0;
+		margin-bottom: 10px;
+	}
+	> p {
+		font-size: 14px;
+		font-weight: bold;
+		color: #eee;
+		margin: 0;
+		> span {
+			color: $pink-color;
+			font-style: italic;
+		}
+	}
+}
