@@ -26,6 +26,7 @@ import {
 	deleteBourbonFromUserCollection as deleteBourbon,
 } from '../Api/Api';
 import { setAlert } from './alert';
+import StatusCodeMap from '../utils/StatusCodeMap';
 
 export const postUserCollection = (name) => async (dispatch) => {
 	const response = await postCollection(name);
@@ -58,7 +59,7 @@ export const getUserCollections = () => async (dispatch) => {
 		dispatch({
 			type: GET_USER_COLLECTIONS_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
 	}
 };
 
@@ -108,7 +109,7 @@ export const addBourbontoUserCollection =
 			});
 			dispatch(setAlert('Added Bourbon!', 'success'));
 		} else {
-			dispatch(setAlert(response.data.message, 'danger'));
+			dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
 		}
 	};
 
@@ -133,7 +134,7 @@ export const deleteBourbonFromUserCollection =
 			dispatch({
 				type: DELETE_BOURBON_FROM_COLLECTION_FAILURE,
 			});
-			dispatch(setAlert(response.data.message, 'danger'));
+			dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
 		}
 	};
 

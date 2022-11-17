@@ -155,14 +155,15 @@ export const getUserCollections = async () => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.get(`${baseURL}/collections`, config);
+		let response = await axios.get(`${baseURL}/type/collections`, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -210,20 +211,21 @@ export const addBourbonToUserCollection = async (collectionId, bourbonId) => {
 	const token = localStorage.getItem('token');
 	const config = {
 		headers: {
-			'Content-typd': 'application/json',
-			Authorization: token,
+			'Content-type': 'application/json',
+			Authorization: 'Bearer ' + token,
 		},
 	};
-	const body = { bourbonId };
+	const body = {};
 	try {
-		const response = await axios.post(
-			`${baseURL}/collection/add/${collectionId}`,
+		let response = await axios.post(
+			`${baseURL}/type/collection/add/${collectionId}/${bourbonId}`,
 			body,
 			config
 		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -235,18 +237,19 @@ export const deleteBourbonFromUserCollection = async (
 	const token = localStorage.getItem('token');
 	const config = {
 		headers: {
-			'Content-typd': 'application/json',
-			Authorization: token,
+			'Content-type': 'application/json',
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.delete(
-			`${baseURL}/collection/delete/${collectionId}/${bourbonId}`,
+		let response = await axios.delete(
+			`${baseURL}/type/collection/delete/${collectionId}/${bourbonId}`,
 			config
 		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -407,15 +410,16 @@ export const deleteUserWishlist = async (id) => {
 export const loginUser = async (email, password) => {
 	const config = {
 		headers: {
-			'Content-type': 'application/json',
+			'Content-Type': 'application/json',
 		},
 	};
 	const body = JSON.stringify({ email, password });
 	try {
-		const response = await axios.post(`${baseURL}/user/login`, body, config);
+		let response = await axios.post(`${baseURL}/user/login`, body, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -424,7 +428,7 @@ export const logoutUser = async () => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	const body = {};
@@ -435,7 +439,7 @@ export const logoutUser = async () => {
 			return response;
 		}
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -443,15 +447,15 @@ export const registerUser = async (formData) => {
 	const { username, email, password } = formData;
 	const config = {
 		headers: {
-			'Access-Control-Allow-Origin': '*',
 			'Content-type': 'application/json',
 		},
 	};
 	const body = JSON.stringify({ username, email, password });
 	try {
-		const response = await axios.post(`${baseURL}/user`, body, config);
+		let response = await axios.post(`${baseURL}/user`, body, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };

@@ -50,7 +50,7 @@ export default function collections(state = initialState, action) {
 			return {
 				...state,
 				loading: false,
-				collections: payload,
+				collections: payload.collections,
 			};
 		case EDIT_COLLECTION_SUCCESS:
 			return {

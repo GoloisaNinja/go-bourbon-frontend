@@ -15,6 +15,7 @@ import {
 	registerUser as createUser,
 } from '../Api/Api';
 import { setAlert } from './alert';
+import StatusMap from '../utils/StatusCodeMap';
 
 export const loginUser = (email, password) => async (dispatch) => {
 	dispatch({
@@ -32,7 +33,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 		dispatch({
 			type: LOGIN_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(StatusMap[response.status], 'danger'));
 	}
 };
 
@@ -52,7 +53,9 @@ export const logoutUser = () => async (dispatch) => {
 		dispatch({
 			type: LOGOUT_FAILURE,
 		});
-		dispatch(setAlert('Something went wrong...', 'danger'));
+		dispatch(
+			setAlert('Something went wrong...' + StatusMap[response.status], 'danger')
+		);
 	}
 };
 
@@ -61,7 +64,7 @@ export const registerUser = (formData) => async (dispatch) => {
 		type: START_REGISTER,
 	});
 	const response = await createUser(formData);
-	if (response.status === 201) {
+	if (response.status === 200) {
 		dispatch({
 			type: REGISTER_SUCCESS,
 			payload: response.data,
@@ -72,8 +75,8 @@ export const registerUser = (formData) => async (dispatch) => {
 		dispatch({
 			type: REGISTER_FAILURE,
 		});
-		for (let i = 0; i < response.data.errors.length; i++) {
-			dispatch(setAlert(`${response.data.errors[i]}`, 'danger'));
-		}
+		dispatch(
+			setAlert(StatusMap[response.status] + '...Request failed', 'danger')
+		);
 	}
 };

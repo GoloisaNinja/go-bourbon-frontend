@@ -12,7 +12,7 @@ const UpperReview = ({ review }) => {
 		const noData = `This section of the review is incomplete or has not been reviewed yet...`;
 		let reviewObj = {};
 		for (const [key, value] of Object.entries(review)) {
-			if (review[key] === null) {
+			if (review[key] === '') {
 				reviewObj[key] = noData;
 			} else {
 				reviewObj[key] = value;

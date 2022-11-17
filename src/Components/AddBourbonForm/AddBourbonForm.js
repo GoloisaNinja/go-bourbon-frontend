@@ -29,7 +29,7 @@ const AddBourbonForm = ({
 		if (contentArray.length > 0) {
 			let arr = [
 				{
-					_id: '0',
+					_id: 'placeholderID1',
 					[`${details.type.toLowerCase()}_id`]: 'placeholder',
 					[`${details.type.toLowerCase()}_name`]: 'select...',
 				},
@@ -68,6 +68,13 @@ const AddBourbonForm = ({
 		handleModal();
 		window.scroll({ top: 0, left: 0, behavior: 'smooth' });
 	};
+	const Option = ({ content }) => {
+		return (
+			<option value={content[`${details.type.toLowerCase()}_id`]}>
+				{content[`${details.type.toLowerCase()}_name`]}
+			</option>
+		);
+	};
 	return (
 		<div className={styles.form_container}>
 			<h1>{`Add Bourbon to ${details.type}`}</h1>
@@ -79,11 +86,10 @@ const AddBourbonForm = ({
 						name='content'
 						onChange={(e) => handleSelectContent(e)}>
 						{validContentArray.map((content) => (
-							<option
-								key={content._id}
-								value={content[`${details.type.toLowerCase()}_id`]}>
-								{content[`${details.type.toLowerCase()}_name`]}
-							</option>
+							<Option
+								key={content[`${details.type.toLowerCase()}_id`]}
+								content={content}
+							/>
 						))}
 					</select>
 					<button
