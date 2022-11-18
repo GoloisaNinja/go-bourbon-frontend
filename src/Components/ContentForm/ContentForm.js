@@ -40,7 +40,7 @@ const ContentForm = ({
 			const cleanCollectionName = collectionName.trim();
 			const editObj = {
 				name: cleanCollectionName,
-				isPrivate: true,
+				private: true,
 			};
 			if (details.isEdit) {
 				editUserCollection(collection._id, editObj);

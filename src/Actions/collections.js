@@ -5,7 +5,8 @@ import {
 	CLEANUP_QUICKLOOK,
 	GET_USER_COLLECTION_SUCCESS,
 	GET_USER_COLLECTION_FAILURE,
-	UPDATE_USER_COLLECTIONS,
+	ADD_BOURBON_TO_USER_COLLECTION_REF,
+	CREATE_USER_COLLECTION_REF,
 	CREATE_COLLECTION_SUCCESS,
 	CREATE_COLLECTION_FAILURE,
 	EDIT_COLLECTION_SUCCESS,
@@ -14,7 +15,10 @@ import {
 	DELETE_COLLECTION_FAILURE,
 	DELETE_BOURBON_FROM_COLLECTION_SUCCESS,
 	DELETE_BOURBON_FROM_COLLECTION_FAILURE,
+	DELETE_BOURBON_FROM_USER_COLLECTION_REF,
+	DELETE_USER_COLLECTION_REF,
 	CLEANUP_COLLECTION,
+	EDIT_USER_COLLECTION_REF_DETAILS,
 } from './types';
 import {
 	postUserCollection as postCollection,
@@ -30,21 +34,23 @@ import StatusCodeMap from '../utils/StatusCodeMap';
 
 export const postUserCollection = (name) => async (dispatch) => {
 	const response = await postCollection(name);
-	if (response.status === 201) {
+	if (response.status === 200) {
+		// collection state
 		dispatch({
 			type: CREATE_COLLECTION_SUCCESS,
 			payload: response.data.collection,
 		});
+		// user state
 		dispatch({
-			type: UPDATE_USER_COLLECTIONS,
-			payload: response.data.user_collections,
+			type: CREATE_USER_COLLECTION_REF,
+			payload: response.data.user_collection,
 		});
 		dispatch(setAlert('Collection Created!', 'success'));
 	} else {
 		dispatch({
 			type: CREATE_COLLECTION_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(response.message + response.data, 'danger'));
 	}
 };
 
@@ -70,7 +76,7 @@ export const getUserCollectionById = (id) => async (dispatch) => {
 			type: GET_USER_COLLECTION_SUCCESS,
 			payload: response.data.collection,
 		});
-		return response.data.meta;
+		//return response.data.meta;
 	} else {
 		dispatch({
 			type: GET_USER_COLLECTION_FAILURE,
@@ -80,22 +86,25 @@ export const getUserCollectionById = (id) => async (dispatch) => {
 };
 
 export const editUserCollection = (id, formData) => async (dispatch) => {
+	const { name } = formData;
 	const response = await editCollection(id, formData);
 	if (response.status === 200) {
+		// collections state
 		dispatch({
 			type: EDIT_COLLECTION_SUCCESS,
-			payload: response.data,
+			payload: { id, name, collection: response.data.collection },
 		});
+		// user state
 		dispatch({
-			type: UPDATE_USER_COLLECTIONS,
-			payload: response.data.user_collections,
+			type: EDIT_USER_COLLECTION_REF_DETAILS,
+			payload: { id, name },
 		});
 		dispatch(setAlert('Collection updated!', 'success'));
 	} else {
 		dispatch({
 			type: EDIT_COLLECTION_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
 	}
 };
 
@@ -104,8 +113,8 @@ export const addBourbontoUserCollection =
 		const response = await addBourbon(collectionId, bourbonId);
 		if (response.status === 200) {
 			dispatch({
-				type: UPDATE_USER_COLLECTIONS,
-				payload: response.data.user_collections,
+				type: ADD_BOURBON_TO_USER_COLLECTION_REF,
+				payload: { collection_id: collectionId, bourbon_id: bourbonId },
 			});
 			dispatch(setAlert('Added Bourbon!', 'success'));
 		} else {
@@ -126,8 +135,8 @@ export const deleteBourbonFromUserCollection =
 				},
 			});
 			dispatch({
-				type: UPDATE_USER_COLLECTIONS,
-				payload: response.data.user_collections,
+				type: DELETE_BOURBON_FROM_USER_COLLECTION_REF,
+				payload: { collection_id: collectionId, bourbon_id: bourbonId },
 			});
 			dispatch(setAlert('Deleted Bourbon!', 'success'));
 		} else {
@@ -146,15 +155,15 @@ export const deleteUserCollection = (id) => async (dispatch) => {
 			payload: id,
 		});
 		dispatch({
-			type: UPDATE_USER_COLLECTIONS,
-			payload: response.data,
+			type: DELETE_USER_COLLECTION_REF,
+			payload: id,
 		});
 		dispatch(setAlert('Deleted Collection!', 'success'));
 	} else {
 		dispatch({
 			type: DELETE_COLLECTION_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
 	}
 };
 

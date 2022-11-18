@@ -137,15 +137,16 @@ export const postUserCollection = async (formData) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	const body = formData;
 	try {
-		const response = await axios.post(`${baseURL}/collection`, body, config);
+		let response = await axios.post(`${baseURL}/type/collection`, body, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -173,14 +174,15 @@ export const getUserCollectionById = async (id) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.get(`${baseURL}/collection/${id}`, config);
+		let response = await axios.get(`${baseURL}/type/collection/${id}`, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -190,19 +192,20 @@ export const editUserCollection = async (id, formData) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	const body = formData;
 	try {
-		const response = await axios.patch(
-			`${baseURL}/collection/update/${id}`,
+		let response = await axios.post(
+			`${baseURL}/type/collection/update/${id}`,
 			body,
 			config
 		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -259,14 +262,18 @@ export const deleteUserCollection = async (id) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.delete(`${baseURL}/collection/${id}`, config);
+		let response = await axios.delete(
+			`${baseURL}/type/collection/${id}`,
+			config
+		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 

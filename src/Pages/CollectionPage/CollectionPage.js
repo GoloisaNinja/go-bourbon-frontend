@@ -23,11 +23,11 @@ const CollectionPage = ({
 	const params = useParams();
 	const collectionId = params.collectionId;
 	const [searchTerm, setSearchTerm] = useState('');
-	const [meta, setMeta] = useState({});
+	//const [meta, setMeta] = useState({});
 	useEffect(() => {
 		const fetchCollection = async () => {
-			const response = await getUserCollectionById(collectionId);
-			setMeta(response);
+			await getUserCollectionById(collectionId);
+			//setMeta(response);
 		};
 		fetchCollection();
 		return () => {
@@ -44,7 +44,7 @@ const CollectionPage = ({
 		<Loading />
 	) : (
 		<div className={styles.container}>
-			<Head meta={meta} />
+			{/* <Head meta={meta} /> */}
 			<UserSplash
 				type={'bourbons'}
 				name={collection.name}

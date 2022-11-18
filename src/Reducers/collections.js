@@ -56,8 +56,15 @@ export default function collections(state = initialState, action) {
 			return {
 				...state,
 				loading: false,
-				collections: payload.collections,
-				quick_look: payload.collection,
+				collections: [
+					...state.collections.map((collection) => {
+						if (collection._id === payload.id) {
+							collection.name = payload.name;
+						}
+						return collection;
+					}),
+				],
+				//quick_look: payload.collection,
 			};
 		case CREATE_COLLECTION_FAILURE:
 		case EDIT_COLLECTION_FAILURE:
@@ -71,24 +78,28 @@ export default function collections(state = initialState, action) {
 			return {
 				...state,
 				loading: false,
-				collections: state.collections.filter(
-					(collection) => collection._id !== payload
-				),
+				collections: [
+					...state.collections.filter(
+						(collection) => collection._id !== payload
+					),
+				],
 				quick_look: null,
 			};
 		case DELETE_BOURBON_FROM_COLLECTION_SUCCESS:
 			return {
 				...state,
 				loading: false,
-				collections: state.collections.map((collection) => {
-					if (collection._id === payload.collectionId) {
-						collection.bourbons = collection.bourbons.filter(
-							(bourbon) => bourbon._id !== payload.bourbonId
-						);
-					}
-					return collection;
-				}),
-				quick_look: payload.collection,
+				collections: [
+					...state.collections.map((collection) => {
+						if (collection._id === payload.collectionId) {
+							collection.bourbons = collection.bourbons.filter(
+								(bourbon) => bourbon._id !== payload.bourbonId
+							);
+						}
+						return collection;
+					}),
+				],
+				//quick_look: payload.collection,
 			};
 		case CLEANUP_COLLECTION:
 			return {
