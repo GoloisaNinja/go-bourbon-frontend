@@ -5,7 +5,6 @@ import {
 	CLEANUP_WISHLIST_QUICKLOOK,
 	GET_USER_WISHLIST_SUCCESS,
 	GET_USER_WISHLIST_FAILURE,
-	UPDATE_USER_WISHLISTS,
 	CREATE_WISHLIST_SUCCESS,
 	CREATE_WISHLIST_FAILURE,
 	EDIT_WISHLIST_SUCCESS,
@@ -15,6 +14,12 @@ import {
 	DELETE_BOURBON_FROM_WISHLIST_SUCCESS,
 	DELETE_BOURBON_FROM_WISHLIST_FAILURE,
 	CLEANUP_WISHLIST,
+	// new types
+	CREATE_USER_WISHLIST_REF,
+	DELETE_USER_WISHLIST_REF,
+	EDIT_USER_WISHLIST_REF_DETAILS,
+	ADD_BOURBON_TO_USER_WISHLIST_REF,
+	DELETE_BOURBON_FROM_USER_WISHLIST_REF,
 } from './types';
 import {
 	postUserWishlist as postWishlist,
@@ -26,24 +31,25 @@ import {
 	deleteBourbonFromUserWishlist as deleteBourbon,
 } from '../Api/Api';
 import { setAlert } from './alert';
+import ErrorResponseHelper from '../utils/ErrorResponseHelper';
 
 export const postUserWishlist = (name) => async (dispatch) => {
 	const response = await postWishlist(name);
-	if (response.status === 201) {
+	if (response.status === 200) {
 		dispatch({
 			type: CREATE_WISHLIST_SUCCESS,
 			payload: response.data.wishlist,
 		});
 		dispatch({
-			type: UPDATE_USER_WISHLISTS,
-			payload: response.data.user_wishlists,
+			type: CREATE_USER_WISHLIST_REF,
+			payload: response.data.user_wishlist,
 		});
 		dispatch(setAlert('Wishlist Created!', 'success'));
 	} else {
 		dispatch({
 			type: CREATE_WISHLIST_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -52,13 +58,13 @@ export const getUserWishlists = () => async (dispatch) => {
 	if (response.status === 200) {
 		dispatch({
 			type: GET_USER_WISHLISTS_SUCCESS,
-			payload: response.data,
+			payload: response.data.wishlists,
 		});
 	} else {
 		dispatch({
 			type: GET_USER_WISHLISTS_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -69,32 +75,33 @@ export const getUserWishlistById = (id) => async (dispatch) => {
 			type: GET_USER_WISHLIST_SUCCESS,
 			payload: response.data.wishlist,
 		});
-		return response.data.meta;
+		//return response.data.meta;
 	} else {
 		dispatch({
 			type: GET_USER_WISHLIST_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
 export const editUserWishlist = (id, formData) => async (dispatch) => {
+	const { name } = formData;
 	const response = await editWishlist(id, formData);
 	if (response.status === 200) {
 		dispatch({
 			type: EDIT_WISHLIST_SUCCESS,
-			payload: response.data,
+			payload: { id, name },
 		});
 		dispatch({
-			type: UPDATE_USER_WISHLISTS,
-			payload: response.data.user_WISHLISTs,
+			type: EDIT_USER_WISHLIST_REF_DETAILS,
+			payload: { id, name },
 		});
 		dispatch(setAlert('Wishlist updated!', 'success'));
 	} else {
 		dispatch({
 			type: EDIT_WISHLIST_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -103,12 +110,12 @@ export const addBourbontoUserWishlist =
 		const response = await addBourbon(wishlistId, bourbonId);
 		if (response.status === 200) {
 			dispatch({
-				type: UPDATE_USER_WISHLISTS,
-				payload: response.data.user_wishlists,
+				type: ADD_BOURBON_TO_USER_WISHLIST_REF,
+				payload: { bourbon_id: bourbonId, wishlist_id: wishlistId },
 			});
 			dispatch(setAlert('Added Bourbon!', 'success'));
 		} else {
-			dispatch(setAlert(response.data.message, 'danger'));
+			dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 		}
 	};
 
@@ -121,19 +128,18 @@ export const deleteBourbonFromUserWishlist =
 				payload: {
 					wishlistId,
 					bourbonId,
-					wishlist: response.data.wishlist,
 				},
 			});
 			dispatch({
-				type: UPDATE_USER_WISHLISTS,
-				payload: response.data.user_wishlists,
+				type: DELETE_BOURBON_FROM_USER_WISHLIST_REF,
+				payload: { wishlist_id: wishlistId, bourbon_id: bourbonId },
 			});
 			dispatch(setAlert('Deleted Bourbon!', 'success'));
 		} else {
 			dispatch({
 				type: DELETE_BOURBON_FROM_WISHLIST_FAILURE,
 			});
-			dispatch(setAlert(response.data.message, 'danger'));
+			dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 		}
 	};
 
@@ -145,15 +151,15 @@ export const deleteUserWishlist = (id) => async (dispatch) => {
 			payload: id,
 		});
 		dispatch({
-			type: UPDATE_USER_WISHLISTS,
-			payload: response.data,
+			type: DELETE_USER_WISHLIST_REF,
+			payload: id,
 		});
 		dispatch(setAlert('Deleted Wishlist!', 'success'));
 	} else {
 		dispatch({
 			type: DELETE_WISHLIST_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 

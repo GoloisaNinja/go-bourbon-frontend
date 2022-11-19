@@ -52,20 +52,17 @@ export default function collections(state = initialState, action) {
 				loading: false,
 				collections: payload.collections,
 			};
-		case EDIT_COLLECTION_SUCCESS:
+		case EDIT_COLLECTION_SUCCESS: {
+			const index = state.collections.findIndex((c) => c._id === payload.id);
+			const updatedCopy = [...state.collections];
+			updatedCopy[index].name = payload.name;
 			return {
 				...state,
 				loading: false,
-				collections: [
-					...state.collections.map((collection) => {
-						if (collection._id === payload.id) {
-							collection.name = payload.name;
-						}
-						return collection;
-					}),
-				],
+				collections: updatedCopy,
 				//quick_look: payload.collection,
 			};
+		}
 		case CREATE_COLLECTION_FAILURE:
 		case EDIT_COLLECTION_FAILURE:
 		case DELETE_COLLECTION_FAILURE:
@@ -78,29 +75,25 @@ export default function collections(state = initialState, action) {
 			return {
 				...state,
 				loading: false,
-				collections: [
-					...state.collections.filter(
-						(collection) => collection._id !== payload
-					),
-				],
+				collections: [...state.collections.filter((c) => c._id !== payload)],
 				quick_look: null,
 			};
-		case DELETE_BOURBON_FROM_COLLECTION_SUCCESS:
+		case DELETE_BOURBON_FROM_COLLECTION_SUCCESS: {
+			const index = state.collections.findIndex(
+				(c) => c._id === payload.collectionId
+			);
+			const updatedCopy = [...state.collections];
+			const filteredBourbons = updatedCopy[index].bourbons.filter(
+				(b) => b._id !== payload.bourbonId
+			);
+			updatedCopy[index].bourbons = filteredBourbons;
 			return {
 				...state,
 				loading: false,
-				collections: [
-					...state.collections.map((collection) => {
-						if (collection._id === payload.collectionId) {
-							collection.bourbons = collection.bourbons.filter(
-								(bourbon) => bourbon._id !== payload.bourbonId
-							);
-						}
-						return collection;
-					}),
-				],
+				collections: updatedCopy,
 				//quick_look: payload.collection,
 			};
+		}
 		case CLEANUP_COLLECTION:
 			return {
 				...state,

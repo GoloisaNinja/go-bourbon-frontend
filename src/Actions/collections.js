@@ -30,7 +30,7 @@ import {
 	deleteBourbonFromUserCollection as deleteBourbon,
 } from '../Api/Api';
 import { setAlert } from './alert';
-import StatusCodeMap from '../utils/StatusCodeMap';
+import ErrorResponseHelper from '../utils/ErrorResponseHelper';
 
 export const postUserCollection = (name) => async (dispatch) => {
 	const response = await postCollection(name);
@@ -50,7 +50,7 @@ export const postUserCollection = (name) => async (dispatch) => {
 		dispatch({
 			type: CREATE_COLLECTION_FAILURE,
 		});
-		dispatch(setAlert(response.message + response.data, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -65,7 +65,7 @@ export const getUserCollections = () => async (dispatch) => {
 		dispatch({
 			type: GET_USER_COLLECTIONS_FAILURE,
 		});
-		dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -81,7 +81,7 @@ export const getUserCollectionById = (id) => async (dispatch) => {
 		dispatch({
 			type: GET_USER_COLLECTION_FAILURE,
 		});
-		dispatch(setAlert(response.data.message, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -104,7 +104,7 @@ export const editUserCollection = (id, formData) => async (dispatch) => {
 		dispatch({
 			type: EDIT_COLLECTION_FAILURE,
 		});
-		dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -118,7 +118,7 @@ export const addBourbontoUserCollection =
 			});
 			dispatch(setAlert('Added Bourbon!', 'success'));
 		} else {
-			dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
+			dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 		}
 	};
 
@@ -143,7 +143,7 @@ export const deleteBourbonFromUserCollection =
 			dispatch({
 				type: DELETE_BOURBON_FROM_COLLECTION_FAILURE,
 			});
-			dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
+			dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 		}
 	};
 
@@ -163,7 +163,7 @@ export const deleteUserCollection = (id) => async (dispatch) => {
 		dispatch({
 			type: DELETE_COLLECTION_FAILURE,
 		});
-		dispatch(setAlert(response.message + ' ' + response.data, 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 

@@ -13,7 +13,11 @@ import {
 	DELETE_USER_COLLECTION_REF,
 	DELETE_BOURBON_FROM_USER_COLLECTION_REF,
 	ADD_BOURBON_TO_USER_COLLECTION_REF,
-	UPDATE_USER_WISHLISTS,
+	CREATE_USER_WISHLIST_REF,
+	DELETE_USER_WISHLIST_REF,
+	EDIT_USER_WISHLIST_REF_DETAILS,
+	ADD_BOURBON_TO_USER_WISHLIST_REF,
+	DELETE_BOURBON_FROM_USER_WISHLIST_REF,
 } from '../Actions/types';
 
 const initialState = {
@@ -63,56 +67,54 @@ export default function auth(state = initialState, action) {
 				...state,
 				loading: false,
 			};
-		case EDIT_USER_COLLECTION_REF_DETAILS:
+		case EDIT_USER_COLLECTION_REF_DETAILS: {
+			const index = state.user.collections.findIndex(
+				(ref) => ref.collection_id === payload.id
+			);
+			const updatedCopy = [...state.user.collections];
+			updatedCopy[index].collection_name = payload.name;
 			return {
 				...state,
 				loading: false,
 				user: {
 					...state.user,
-					collections: [
-						...state.user.collections.map((collection) => {
-							if (collection.collection_id === payload.id) {
-								collection.collection_name = payload.name;
-							}
-							return collection;
-						}),
-					],
+					collections: updatedCopy,
 				},
 			};
-		case ADD_BOURBON_TO_USER_COLLECTION_REF:
+		}
+		case ADD_BOURBON_TO_USER_COLLECTION_REF: {
+			const index = state.user.collections.findIndex(
+				(ref) => ref.collection_id === payload.collection_id
+			);
+			const updatedCopy = [...state.user.collections];
+			updatedCopy[index].bourbons.push({ bourbon_id: payload.bourbon_id });
 			return {
 				...state,
 				loading: false,
 				user: {
 					...state.user,
-					collections: [
-						...state.user.collections.map((collection) => {
-							if (collection.collection_id === payload.collection_id) {
-								collection.bourbons.push({ bourbon_id: payload.bourbon_id });
-							}
-							return collection;
-						}),
-					],
+					collections: updatedCopy,
 				},
 			};
-		case DELETE_BOURBON_FROM_USER_COLLECTION_REF:
+		}
+		case DELETE_BOURBON_FROM_USER_COLLECTION_REF: {
+			const index = state.user.collections.findIndex(
+				(ref) => ref.collection_id === payload.collection_id
+			);
+			const updatedCopy = [...state.user.collections];
+			const filteredBourbons = updatedCopy[index].bourbons.filter(
+				(bourbon) => bourbon.bourbon_id !== payload.bourbon_id
+			);
+			updatedCopy[index].bourbons = filteredBourbons;
 			return {
 				...state,
 				loading: false,
 				user: {
 					...state.user,
-					collections: [
-						...state.user.collections.map((collection) => {
-							if (collection.collection_id === payload.collection_id) {
-								collection.bourbons = collection.bourbons.filter(
-									(bourbon) => bourbon.bourbon_id !== payload.bourbon_id
-								);
-							}
-							return collection;
-						}),
-					],
+					collections: updatedCopy,
 				},
 			};
+		}
 		case CREATE_USER_COLLECTION_REF:
 			return {
 				...state,
@@ -122,25 +124,85 @@ export default function auth(state = initialState, action) {
 					collections: [...state.user.collections, payload],
 				},
 			};
+		case CREATE_USER_WISHLIST_REF:
+			return {
+				...state,
+				loading: false,
+				user: {
+					...state.user,
+					wishlists: [...state.user.wishlists, payload],
+				},
+			};
 		case DELETE_USER_COLLECTION_REF:
 			return {
 				...state,
 				loading: false,
 				user: {
 					...state.user,
-					collections: [
-						...state.user.collections.filter(
-							(collection) => collection.collection_id !== payload
-						),
-					],
+					collections: state.user.collections.filter(
+						(collection) => collection.collection_id !== payload
+					),
 				},
 			};
-		case UPDATE_USER_WISHLISTS:
+		case DELETE_USER_WISHLIST_REF:
 			return {
 				...state,
 				loading: false,
-				user: { ...state.user, wishlists: payload },
+				user: {
+					...state.user,
+					wishlists: state.user.wishlists.filter(
+						(wishlist) => wishlist.wishlist_id !== payload
+					),
+				},
 			};
+		case EDIT_USER_WISHLIST_REF_DETAILS: {
+			const index = state.user.wishlists.findIndex(
+				(ref) => ref.wishlist_id === payload.id
+			);
+			const updatedCopy = [...state.user.wishlists];
+			updatedCopy[index].wishlist_name = payload.name;
+			return {
+				...state,
+				loading: false,
+				user: {
+					...state.user,
+					wishlists: updatedCopy,
+				},
+			};
+		}
+		case ADD_BOURBON_TO_USER_WISHLIST_REF: {
+			const index = state.user.wishlists.findIndex(
+				(ref) => ref.wishlist_id === payload.wishlist_id
+			);
+			const updatedCopy = [...state.user.wishlists];
+			updatedCopy[index].bourbons.push({ bourbon_id: payload.bourbon_id });
+			return {
+				...state,
+				loading: false,
+				user: {
+					...state.user,
+					wishlists: updatedCopy,
+				},
+			};
+		}
+		case DELETE_BOURBON_FROM_USER_WISHLIST_REF: {
+			const index = state.user.wishlists.findIndex(
+				(ref) => ref.wishlist_id === payload.wishlist_id
+			);
+			const updatedCopy = [...state.user.wishlists];
+			const filteredBourbons = updatedCopy[index].bourbons.filter(
+				(b) => b.bourbon_id !== payload.bourbon_id
+			);
+			updatedCopy[index].bourbons = filteredBourbons;
+			return {
+				...state,
+				loading: false,
+				user: {
+					...state.user,
+					wishlists: updatedCopy,
+				},
+			};
+		}
 		default:
 			return state;
 	}

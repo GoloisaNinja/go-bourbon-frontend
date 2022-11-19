@@ -52,13 +52,17 @@ export default function wishlists(state = initialState, action) {
 				loading: false,
 				wishlists: payload,
 			};
-		case EDIT_WISHLIST_SUCCESS:
+		case EDIT_WISHLIST_SUCCESS: {
+			const index = state.wishlists.findIndex((w) => w._id === payload.id);
+			const updatedCopy = [...state.wishlists];
+			updatedCopy[index].name = payload.name;
 			return {
 				...state,
 				loading: false,
-				wishlists: payload.wishlists,
-				quick_look: payload.wishlist,
+				wishlists: updatedCopy,
+				//quick_look: payload.wishlist,
 			};
+		}
 		case CREATE_WISHLIST_FAILURE:
 		case EDIT_WISHLIST_FAILURE:
 		case DELETE_WISHLIST_FAILURE:
@@ -71,25 +75,25 @@ export default function wishlists(state = initialState, action) {
 			return {
 				...state,
 				loading: false,
-				wishlists: state.wishlists.filter(
-					(wishlist) => wishlist._id !== payload
-				),
+				wishlists: state.wishlists.filter((w) => w._id !== payload),
 				quick_look: null,
 			};
-		case DELETE_BOURBON_FROM_WISHLIST_SUCCESS:
+		case DELETE_BOURBON_FROM_WISHLIST_SUCCESS: {
+			const index = state.wishlists.findIndex(
+				(w) => w._id === payload.wishlistId
+			);
+			const updatedCopy = [...state.wishlists];
+			const filteredBourbons = updatedCopy[index].bourbons.filter(
+				(bourbon) => bourbon._id !== payload.bourbonId
+			);
+			updatedCopy[index].bourbons = filteredBourbons;
 			return {
 				...state,
 				loading: false,
-				wishlists: state.wishlists.map((wishlist) => {
-					if (wishlist._id === payload.wishlistId) {
-						wishlist.bourbons = wishlist.bourbons.filter(
-							(bourbon) => bourbon._id !== payload.bourbonId
-						);
-					}
-					return wishlist;
-				}),
-				quick_look: payload.wishlist,
+				wishlists: updatedCopy,
+				//quick_look: payload.wishlist,
 			};
+		}
 		case CLEANUP_WISHLIST:
 			return {
 				...state,

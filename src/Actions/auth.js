@@ -15,7 +15,7 @@ import {
 	registerUser as createUser,
 } from '../Api/Api';
 import { setAlert } from './alert';
-import StatusMap from '../utils/StatusCodeMap';
+import ErrorResponseHelper from '../utils/ErrorResponseHelper';
 
 export const loginUser = (email, password) => async (dispatch) => {
 	dispatch({
@@ -33,7 +33,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 		dispatch({
 			type: LOGIN_FAILURE,
 		});
-		dispatch(setAlert(StatusMap[response.status], 'danger'));
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -53,9 +53,7 @@ export const logoutUser = () => async (dispatch) => {
 		dispatch({
 			type: LOGOUT_FAILURE,
 		});
-		dispatch(
-			setAlert('Something went wrong...' + StatusMap[response.status], 'danger')
-		);
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };
 
@@ -75,8 +73,6 @@ export const registerUser = (formData) => async (dispatch) => {
 		dispatch({
 			type: REGISTER_FAILURE,
 		});
-		dispatch(
-			setAlert(StatusMap[response.status] + '...Request failed', 'danger')
-		);
+		dispatch(setAlert(ErrorResponseHelper(response), 'danger'));
 	}
 };

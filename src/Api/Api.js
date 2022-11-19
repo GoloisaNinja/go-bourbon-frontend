@@ -285,15 +285,16 @@ export const postUserWishlist = async (formData) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	const body = formData;
 	try {
-		const response = await axios.post(`${baseURL}/wishlist`, body, config);
+		let response = await axios.post(`${baseURL}/type/wishlist`, body, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -303,14 +304,15 @@ export const getUserWishlists = async () => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.get(`${baseURL}/wishlists`, config);
+		let response = await axios.get(`${baseURL}/type/wishlists`, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -320,14 +322,15 @@ export const getUserWishlistById = async (id) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.get(`${baseURL}/wishlist/${id}`, config);
+		let response = await axios.get(`${baseURL}/type/wishlist/${id}`, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -337,19 +340,20 @@ export const editUserWishlist = async (id, formData) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	const body = formData;
 	try {
-		const response = await axios.patch(
-			`${baseURL}/wishlist/update/${id}`,
+		let response = await axios.post(
+			`${baseURL}/type/wishlist/update/${id}`,
 			body,
 			config
 		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -358,20 +362,21 @@ export const addBourbonToUserWishlist = async (wishlistId, bourbonId) => {
 	const token = localStorage.getItem('token');
 	const config = {
 		headers: {
-			'Content-typd': 'application/json',
-			Authorization: token,
+			'Content-type': 'application/json',
+			Authorization: 'Bearer ' + token,
 		},
 	};
-	const body = { bourbonId };
+	const body = {};
 	try {
-		const response = await axios.post(
-			`${baseURL}/wishlist/add/${wishlistId}`,
+		let response = await axios.post(
+			`${baseURL}/type/wishlist/add/${wishlistId}/${bourbonId}`,
 			body,
 			config
 		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -380,18 +385,19 @@ export const deleteBourbonFromUserWishlist = async (wishlistId, bourbonId) => {
 	const token = localStorage.getItem('token');
 	const config = {
 		headers: {
-			'Content-typd': 'application/json',
-			Authorization: token,
+			'Content-type': 'application/json',
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.delete(
-			`${baseURL}/wishlist/delete/${wishlistId}/${bourbonId}`,
+		let response = await axios.delete(
+			`${baseURL}/type/wishlist/delete/${wishlistId}/${bourbonId}`,
 			config
 		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -401,14 +407,15 @@ export const deleteUserWishlist = async (id) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.delete(`${baseURL}/wishlist/${id}`, config);
+		let response = await axios.delete(`${baseURL}/type/wishlist/${id}`, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 

@@ -51,7 +51,7 @@ const ContentForm = ({
 			const cleanWishlistName = wishlistName.trim();
 			const editObj = {
 				name: cleanWishlistName,
-				isPrivate: true,
+				private: true,
 			};
 			if (details.isEdit) {
 				editUserWishlist(wishlist._id, editObj);
