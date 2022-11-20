@@ -30,13 +30,19 @@ export default function reviews(state = initialState, action) {
 				loading: false,
 				reviews: [],
 			};
-		case EDIT_REVIEW_SUCCESS:
+		case EDIT_REVIEW_SUCCESS: {
+			const index = state.reviews.findIndex((r) => r._id === payload.id);
+			const updatedCopy = [...state.reviews];
+			updatedCopy[index].reviewTitle = payload.reviewTitle;
+			updatedCopy[index].reviewScore = payload.reviewScore;
+			updatedCopy[index].reviewText = payload.reviewText;
 			return {
 				...state,
 				loading: false,
 				review: payload.review,
-				reviews: payload.reviews,
+				reviews: updatedCopy,
 			};
+		}
 		case DELETE_REVIEW_SUCCESS:
 			return {
 				...state,

@@ -9,7 +9,7 @@ import Search from '../../Components/Search/Search';
 import FilterDetails from '../../Components/Filters/FilterDetails';
 import BourbonsPageFilters from '../../Components/Filters/BourbonsPageFilters';
 import Loading from '../../Components/Loading/Loading';
-import Head from '../../Components/Head/Head';
+//import Head from '../../Components/Head/Head';
 import smoothscroll from 'smoothscroll-polyfill';
 import BourbonsGrid from '../../Components/BourbonsGrid/BourbonsGrid';
 import styles from './BourbonsPage.module.scss';
@@ -22,7 +22,7 @@ const BourbonsPage = ({
 	const [currentPage, setCurrentPage] = useState(1);
 	const [paramSearchTerm, setParamSearchTerm] = useState('');
 	const [paramSorts, setParamSorts] = useState('');
-	const [meta, setMeta] = useState({});
+	//const [meta, setMeta] = useState({});
 	const location = useLocation();
 	const navigate = useNavigate();
 	const returnParams = useCallback(async () => {

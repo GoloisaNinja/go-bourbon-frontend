@@ -3,16 +3,18 @@ const prod = false;
 const configObject = {
 	prod: {
 		url: 'https://bourbon-backend.onrender.com/api',
-		//apiKey: process.env.REACT_APP_BOURBON_PROD_API_KEY,
+		apiKey: process.env.REACT_APP_BOURBON_PROD_API_KEY,
+		apiKeyQp: `&apiKey=${process.env.REACT_APP_BOURBON_PROD_API_KEY}`,
 	},
 	dev: {
 		url: 'http://localhost:5000/api',
-		//apiKey: process.env.REACT_APP_BOURBONAPI_KEY,
+		apiKey: process.env.REACT_APP_BOURBON_DEV_API_KEY,
+		apiKeyQp: `apiKey=${process.env.REACT_APP_BOURBON_DEV_API_KEY}`,
 	},
 };
 const baseURL = prod ? configObject.prod.url : configObject.dev.url;
-// TODO - look at adding api key security to Go Api
-//const apikey = prod ? configObject.prod.apiKey : configObject.dev.apiKey;
+
+const apiQp = prod ? configObject.prod.apiKeyQp : configObject.dev.apiKeyQp;
 
 // Bourbon Calls
 
@@ -21,7 +23,7 @@ const baseURL = prod ? configObject.prod.url : configObject.dev.url;
 export const getPaginatedBourbons = async (page, search, sort) => {
 	try {
 		let response = await axios.get(
-			`${baseURL}/bourbons?search=${search}&sort=${sort}&page=${page}`
+			`${baseURL}/bourbons?search=${search}&sort=${sort}&page=${page}&${apiQp}`
 		);
 		response = response.data;
 		if (response.data.bourbons.length > 0) {
@@ -36,7 +38,7 @@ export const getPaginatedBourbons = async (page, search, sort) => {
 
 export const getSingleBourbon = async (id) => {
 	try {
-		let response = await axios.get(`${baseURL}/bourbons/${id}`);
+		let response = await axios.get(`${baseURL}/bourbons/${id}?${apiQp}`);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -50,11 +52,11 @@ export const getSingleBourbon = async (id) => {
 
 export const getBourbonReviews = async (id) => {
 	try {
-		let response = await axios.get(`${baseURL}/reviews/bourbon/${id}`);
+		let response = await axios.get(`${baseURL}/reviews/bourbon/${id}?${apiQp}`);
 		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -62,10 +64,11 @@ export const getBourbonReviews = async (id) => {
 
 export const getUserBourbonReviews = async (id) => {
 	try {
-		const response = await axios.get(`${baseURL}/reviews/user/${id}`);
+		let response = await axios.get(`${baseURL}/reviews/user/${id}?${apiQp}`);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -76,15 +79,16 @@ export const postBourbonReview = async (formData) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	const body = formData;
 	try {
-		const response = await axios.post(`${baseURL}/review`, body, config);
+		let response = await axios.post(`${baseURL}/review?${apiQp}`, body, config);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -95,19 +99,20 @@ export const editUserReview = async (id, formData) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	const body = formData;
 	try {
-		const response = await axios.patch(
-			`${baseURL}/review/update/${id}`,
+		let response = await axios.post(
+			`${baseURL}/review/update/${id}?${apiQp}`,
 			body,
 			config
 		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -118,14 +123,18 @@ export const deleteUserReview = async (id) => {
 	const config = {
 		headers: {
 			'Content-type': 'application/json',
-			Authorization: token,
+			Authorization: 'Bearer ' + token,
 		},
 	};
 	try {
-		const response = await axios.delete(`${baseURL}/review/${id}`, config);
+		let response = await axios.delete(
+			`${baseURL}/review/delete/${id}?${apiQp}`,
+			config
+		);
+		response = response.data;
 		return response;
 	} catch (error) {
-		return error.response;
+		return error.response.data;
 	}
 };
 
@@ -142,7 +151,11 @@ export const postUserCollection = async (formData) => {
 	};
 	const body = formData;
 	try {
-		let response = await axios.post(`${baseURL}/type/collection`, body, config);
+		let response = await axios.post(
+			`${baseURL}/type/collection?${apiQp}`,
+			body,
+			config
+		);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -160,7 +173,10 @@ export const getUserCollections = async () => {
 		},
 	};
 	try {
-		let response = await axios.get(`${baseURL}/type/collections`, config);
+		let response = await axios.get(
+			`${baseURL}/type/collections?${apiQp}`,
+			config
+		);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -178,7 +194,10 @@ export const getUserCollectionById = async (id) => {
 		},
 	};
 	try {
-		let response = await axios.get(`${baseURL}/type/collection/${id}`, config);
+		let response = await axios.get(
+			`${baseURL}/type/collection/${id}?${apiQp}`,
+			config
+		);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -198,7 +217,7 @@ export const editUserCollection = async (id, formData) => {
 	const body = formData;
 	try {
 		let response = await axios.post(
-			`${baseURL}/type/collection/update/${id}`,
+			`${baseURL}/type/collection/update/${id}?${apiQp}`,
 			body,
 			config
 		);
@@ -221,7 +240,7 @@ export const addBourbonToUserCollection = async (collectionId, bourbonId) => {
 	const body = {};
 	try {
 		let response = await axios.post(
-			`${baseURL}/type/collection/add/${collectionId}/${bourbonId}`,
+			`${baseURL}/type/collection/add/${collectionId}/${bourbonId}?${apiQp}`,
 			body,
 			config
 		);
@@ -246,7 +265,7 @@ export const deleteBourbonFromUserCollection = async (
 	};
 	try {
 		let response = await axios.delete(
-			`${baseURL}/type/collection/delete/${collectionId}/${bourbonId}`,
+			`${baseURL}/type/collection/delete/${collectionId}/${bourbonId}?${apiQp}`,
 			config
 		);
 		response = response.data;
@@ -267,7 +286,7 @@ export const deleteUserCollection = async (id) => {
 	};
 	try {
 		let response = await axios.delete(
-			`${baseURL}/type/collection/${id}`,
+			`${baseURL}/type/collection/${id}?${apiQp}`,
 			config
 		);
 		response = response.data;
@@ -290,7 +309,11 @@ export const postUserWishlist = async (formData) => {
 	};
 	const body = formData;
 	try {
-		let response = await axios.post(`${baseURL}/type/wishlist`, body, config);
+		let response = await axios.post(
+			`${baseURL}/type/wishlist?${apiQp}`,
+			body,
+			config
+		);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -308,7 +331,10 @@ export const getUserWishlists = async () => {
 		},
 	};
 	try {
-		let response = await axios.get(`${baseURL}/type/wishlists`, config);
+		let response = await axios.get(
+			`${baseURL}/type/wishlists?${apiQp}`,
+			config
+		);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -326,7 +352,10 @@ export const getUserWishlistById = async (id) => {
 		},
 	};
 	try {
-		let response = await axios.get(`${baseURL}/type/wishlist/${id}`, config);
+		let response = await axios.get(
+			`${baseURL}/type/wishlist/?{id}&${apiQp}`,
+			config
+		);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -346,7 +375,7 @@ export const editUserWishlist = async (id, formData) => {
 	const body = formData;
 	try {
 		let response = await axios.post(
-			`${baseURL}/type/wishlist/update/${id}`,
+			`${baseURL}/type/wishlist/update/${id}?${apiQp}`,
 			body,
 			config
 		);
@@ -369,7 +398,7 @@ export const addBourbonToUserWishlist = async (wishlistId, bourbonId) => {
 	const body = {};
 	try {
 		let response = await axios.post(
-			`${baseURL}/type/wishlist/add/${wishlistId}/${bourbonId}`,
+			`${baseURL}/type/wishlist/add/${wishlistId}/${bourbonId}?${apiQp}`,
 			body,
 			config
 		);
@@ -391,7 +420,7 @@ export const deleteBourbonFromUserWishlist = async (wishlistId, bourbonId) => {
 	};
 	try {
 		let response = await axios.delete(
-			`${baseURL}/type/wishlist/delete/${wishlistId}/${bourbonId}`,
+			`${baseURL}/type/wishlist/delete/${wishlistId}/${bourbonId}?${apiQp}`,
 			config
 		);
 		response = response.data;
@@ -411,7 +440,10 @@ export const deleteUserWishlist = async (id) => {
 		},
 	};
 	try {
-		let response = await axios.delete(`${baseURL}/type/wishlist/${id}`, config);
+		let response = await axios.delete(
+			`${baseURL}/type/wishlist/${id}?${apiQp}`,
+			config
+		);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -429,7 +461,11 @@ export const loginUser = async (email, password) => {
 	};
 	const body = JSON.stringify({ email, password });
 	try {
-		let response = await axios.post(`${baseURL}/user/login`, body, config);
+		let response = await axios.post(
+			`${baseURL}/user/login?${apiQp}`,
+			body,
+			config
+		);
 		response = response.data;
 		return response;
 	} catch (error) {
@@ -447,7 +483,11 @@ export const logoutUser = async () => {
 	};
 	const body = {};
 	try {
-		const response = await axios.post(`${baseURL}/user/logout`, body, config);
+		const response = await axios.post(
+			`${baseURL}/user/logout?${apiQp}`,
+			body,
+			config
+		);
 		if (response.status === 200) {
 			localStorage.removeItem('token');
 			return response;
@@ -466,7 +506,7 @@ export const registerUser = async (formData) => {
 	};
 	const body = JSON.stringify({ username, email, password });
 	try {
-		let response = await axios.post(`${baseURL}/user`, body, config);
+		let response = await axios.post(`${baseURL}/user?${apiQp}`, body, config);
 		response = response.data;
 		return response;
 	} catch (error) {

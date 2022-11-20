@@ -11,7 +11,7 @@ import BourbonDetails from '../../Components/BourbonPageComponents/BourbonDetail
 import UpperReview from '../../Components/BourbonPageComponents/UpperReview/UpperReview';
 import ReviewSection from '../../Components/BourbonPageComponents/BourbonBottomReview/ReviewSection/ReviewSection';
 import Loading from '../../Components/Loading/Loading';
-import Head from '../../Components/Head/Head';
+//import Head from '../../Components/Head/Head';
 import {
 	MdErrorOutline,
 	MdOutlineCollectionsBookmark,
@@ -35,7 +35,7 @@ const BourbonPage = ({
 	const bourbonId = params.bourbonId;
 	const [addType, setAddType] = useState('');
 	const [show, setShow] = useState(false);
-	const [meta, setMeta] = useState({});
+	//const [meta, setMeta] = useState({});
 	useEffect(() => {
 		const fetchBourbonData = async () => {
 			await getSingleBourbon(bourbonId);

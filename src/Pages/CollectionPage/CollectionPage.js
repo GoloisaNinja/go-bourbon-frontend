@@ -9,7 +9,7 @@ import {
 import UserSplash from '../../Components/UserSplash/UserSplash';
 import Search from '../../Components/Search/Search';
 import Loading from '../../Components/Loading/Loading';
-import Head from '../../Components/Head/Head';
+//import Head from '../../Components/Head/Head';
 import BourbonsGrid from '../../Components/BourbonsGrid/BourbonsGrid';
 import styles from './CollectionPage.module.scss';
 

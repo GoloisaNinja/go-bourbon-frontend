@@ -18,6 +18,9 @@ import {
 	EDIT_USER_WISHLIST_REF_DETAILS,
 	ADD_BOURBON_TO_USER_WISHLIST_REF,
 	DELETE_BOURBON_FROM_USER_WISHLIST_REF,
+	CREATE_USER_REVIEW_REF,
+	EDIT_USER_REVIEW_REF,
+	DELETE_USER_REVIEW_REF,
 } from '../Actions/types';
 
 const initialState = {
@@ -203,6 +206,39 @@ export default function auth(state = initialState, action) {
 				},
 			};
 		}
+		case CREATE_USER_REVIEW_REF:
+			return {
+				...state,
+				loading: false,
+				user: {
+					...state.user,
+					reviews: [...state.user.reviews, payload],
+				},
+			};
+		case EDIT_USER_REVIEW_REF: {
+			const index = state.user.reviews.findIndex(
+				(r) => r.review_id === payload.id
+			);
+			const updatedCopy = [...state.user.reviews];
+			updatedCopy[index].review_title = payload.title;
+			return {
+				...state,
+				loading: false,
+				user: {
+					...state.user,
+					reviews: updatedCopy,
+				},
+			};
+		}
+		case DELETE_USER_REVIEW_REF:
+			return {
+				...state,
+				loading: false,
+				user: {
+					...state.user,
+					reviews: state.user.reviews.filter((r) => r.review_id !== payload),
+				},
+			};
 		default:
 			return state;
 	}

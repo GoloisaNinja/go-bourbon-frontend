@@ -7,7 +7,6 @@ const ErrorResponseHelper = (r) => {
 	if (Object.hasOwn(r.data, 'data')) {
 		d = r.data.data;
 		if (clearMsgMap[d]) {
-			console.log('map match');
 			d = clearMsgMap[d];
 		}
 	}
