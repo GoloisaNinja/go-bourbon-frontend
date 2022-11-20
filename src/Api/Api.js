@@ -1,10 +1,10 @@
 import axios from 'axios';
-const prod = false;
+const prod = true;
 const configObject = {
 	prod: {
-		url: 'https://bourbon-backend.onrender.com/api',
+		url: process.env.REACT_APP_PROD_BACKEND_API_BASE_URL,
 		apiKey: process.env.REACT_APP_BOURBON_PROD_API_KEY,
-		apiKeyQp: `&apiKey=${process.env.REACT_APP_BOURBON_PROD_API_KEY}`,
+		apiKeyQp: `apiKey=${process.env.REACT_APP_BOURBON_PROD_API_KEY}`,
 	},
 	dev: {
 		url: 'http://localhost:5000/api',
