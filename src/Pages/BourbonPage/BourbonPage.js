@@ -35,6 +35,8 @@ const BourbonPage = ({
 	const bourbonId = params.bourbonId;
 	const [addType, setAddType] = useState('');
 	const [show, setShow] = useState(false);
+	const backupImage =
+		'https://whiskeyraiders.com/wp-content/themes/m2019-w/images/default.jpg';
 	//const [meta, setMeta] = useState({});
 	useEffect(() => {
 		const fetchBourbonData = async () => {
@@ -69,6 +71,10 @@ const BourbonPage = ({
 			navigate(-1);
 		}
 	};
+	const handleBackupImage = (e) => {
+		e.target.onError = null;
+		e.target.src = backupImage;
+	};
 	return loading ? (
 		<Loading />
 	) : bourbon ? (
@@ -98,6 +104,7 @@ const BourbonPage = ({
 				<img
 					src={bourbon.image}
 					alt={`A bottle of ${bourbon.title} or a default whiskey background`}
+					onError={(e) => handleBackupImage(e)}
 				/>
 				<BourbonDetails
 					abv={bourbon.abv}

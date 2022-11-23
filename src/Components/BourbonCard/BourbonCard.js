@@ -1,8 +1,9 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './BourbonCard.module.scss';
-
 const BourbonCard = ({ bourbon }) => {
 	const { _id, image, title, bottler, distiller, abv, age } = bourbon;
+	const backupImage =
+		'https://whiskeyraiders.com/wp-content/themes/m2019-w/images/default.jpg';
 	const navigate = useNavigate();
 	const location = useLocation();
 	const handleNavigate = () => {
@@ -13,10 +14,19 @@ const BourbonCard = ({ bourbon }) => {
 			},
 		});
 	};
+	const handleBackupImage = (e) => {
+		e.target.onError = null;
+		e.target.src = backupImage;
+	};
 	return (
 		<div className={styles.card_container}>
 			<div className={styles.image_container}>
-				<img className={styles.image} src={image} alt={`bourbon ${title}`} />
+				<img
+					className={styles.image}
+					src={image}
+					onError={(e) => handleBackupImage(e)}
+					alt={`bourbon ${title}`}
+				/>
 				<div className={styles.score_container}>
 					<p>{bourbon.review.score ? bourbon.review.score : '?'}</p>
 				</div>
