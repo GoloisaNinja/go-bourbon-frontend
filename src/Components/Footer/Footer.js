@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { SiTwitter } from 'react-icons/si';
+import { SiMastodon } from 'react-icons/si';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
@@ -29,12 +29,12 @@ const Footer = () => {
 			</div>
 			<div>
 				<h3>
-					<SiTwitter />{' '}
+					<SiMastodon />{' '}
 					<a
 						href='https://twitter.com/goloisaninja'
 						rel='noreferrer'
 						target='_blank'>
-						built by GoloisaNinja
+						joncollins<span className={styles.pink_span}>dev</span>
 					</a>
 				</h3>
 				<a href='https://joncollins.dev' rel='noreferrer' target='_blank'>

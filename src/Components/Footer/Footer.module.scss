@@ -2,11 +2,14 @@
 
 .footer_container {
 	display: grid;
-	grid-gap: 15px;
+	grid-gap: 20px;
 	grid-template-areas: 'a b';
 	color: #fff;
 	padding: 25px;
 	margin-top: 50px;
+	@media (max-width: 500px) {
+		padding: 15px;
+	}
 	> div:first-child {
 		display: flex;
 		grid-area: a;
@@ -15,6 +18,11 @@
 			text-decoration: none;
 			color: $blue-color;
 			margin-bottom: 12px;
+		}
+		> h3 {
+			display: flex;
+			align-items: center;
+			height: 40px;
 		}
 	}
 	> div:last-child {
@@ -27,11 +35,17 @@
 			margin-bottom: 12px;
 		}
 		> h3 {
+			display: flex;
+			align-items: center;
 			> a {
+				margin-top: 3px;
 				text-decoration: none;
 				color: #fff;
 			}
 			> svg {
+				width: 40px;
+				height: 40px;
+				margin-right: 10px;
 				color: $blue-color;
 			}
 		}
