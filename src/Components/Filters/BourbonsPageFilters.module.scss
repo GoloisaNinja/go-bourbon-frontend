@@ -36,6 +36,7 @@
 			cursor: pointer;
 			transition: all 0.4s ease;
 			&.expand {
+				rotate: 90deg;
 				transform: rotate(90deg);
 				-webkit-transform: rotate(90deg);
 			}
