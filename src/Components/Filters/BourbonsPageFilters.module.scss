@@ -37,6 +37,7 @@
 			transition: all 0.4s ease;
 			&.expand {
 				transform: rotate(90deg);
+				-webkit-transform: rotate(90deg);
 			}
 		}
 	}
