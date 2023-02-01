@@ -353,7 +353,7 @@ export const getUserWishlistById = async (id) => {
 	};
 	try {
 		let response = await axios.get(
-			`${baseURL}/type/wishlist/?{id}&${apiQp}`,
+			`${baseURL}/type/wishlist/{id}?${apiQp}`,
 			config
 		);
 		response = response.data;
