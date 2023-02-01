@@ -9,7 +9,6 @@ import {
 import UserSplash from '../../Components/UserSplash/UserSplash';
 import Search from '../../Components/Search/Search';
 import Loading from '../../Components/Loading/Loading';
-//import Head from '../../Components/Head/Head';
 import BourbonsGrid from '../../Components/BourbonsGrid/BourbonsGrid';
 import styles from './CollectionPage.module.scss';
 
@@ -23,11 +22,9 @@ const CollectionPage = ({
 	const params = useParams();
 	const collectionId = params.collectionId;
 	const [searchTerm, setSearchTerm] = useState('');
-	//const [meta, setMeta] = useState({});
 	useEffect(() => {
 		const fetchCollection = async () => {
 			await getUserCollectionById(collectionId);
-			//setMeta(response);
 		};
 		fetchCollection();
 		return () => {
