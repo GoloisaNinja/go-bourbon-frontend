@@ -31,7 +31,7 @@ const Footer = () => {
 				<h3>
 					<SiMastodon />{' '}
 					<a
-						href='https://twitter.com/goloisaninja'
+						href='https://hachyderm.io/@joncollinsdev'
 						rel='noreferrer'
 						target='_blank'>
 						joncollins<span className={styles.pink_span}>dev</span>
